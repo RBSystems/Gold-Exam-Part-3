@@ -26,29 +26,6 @@ namespace SIMPLSharpTwitter
         {
         }
 
-        public void sendPostRequest()
-        {
-            CrestronConsole.PrintLine("sendPostRequest()");
-            HttpsClient myClient = new HttpsClient();
-            myClient.Verbose = true;
-
-            HttpsClientRequest clientRequest = new HttpsClientRequest();
-            //clientRequest.Url.Parse("https://twitter.com/?lang=en");//https://dev.twitter.com/oauth/application-only");
-            clientRequest.Url.Parse("https://twitter.com/");
-            clientRequest.RequestType = RequestType.Get;
-            clientRequest.KeepAlive = false;
-            clientRequest.Header.ContentType = "text/xml";
-            clientRequest.Encoding = Encoding.UTF8;
-
-            var httpsResponse = myClient.Dispatch(clientRequest);
-
-            CrestronConsole.PrintLine("httpsResponse.ContentString = {0}.\r", httpsResponse.ContentString);
-            CrestronConsole.PrintLine("httpsResponse.Code = {0}.\r", httpsResponse.Code);
-
-            //next
-            ConsumerBase64 = Convert.ToBase64String(GetBytes(ConsumerKey + ConsumerSecret));
-            
-        }
         public void sendOAuthPost()
         {
             var authHeaderFormat = "Basic {0}";
@@ -102,11 +79,6 @@ namespace SIMPLSharpTwitter
 
         public void parseTweets(String apiResponse)
         {
-            //[{"created_at":"Fri Jun 17 16:33:22 +0000 2016","id":743843994325614592,"id_str":"743843994325614592","test":"World\u2019s first high tech flying hospital @OrbisIntl poised for take off
-            //CrestronConsole.PrintLine(json);
-            // string testStr = "[{\"created_at\":\"12:00\",\"Text\":\"hello test\"}]";
-
-
             String[] subStrings;
             subStrings = apiResponse.Split(',');
             foreach (string str in subStrings)
